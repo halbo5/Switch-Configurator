@@ -1,4 +1,6 @@
 .checkbox label {
-margin-right:10px;
-	
+	margin-right:10px;
+}
+.form-control {
+	width : 200px;
 }
