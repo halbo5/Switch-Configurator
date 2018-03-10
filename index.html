@@ -12,142 +12,24 @@
   </head>
   <body>
   	<div class="container">
-    	<div class="row"><h1>Switch configurator</h1></div>
-			<div class="row"><img src="images/os6350_p10.jpg" width="50%" height="50%"></div>
-        		<form>
-	        <div class="row">
-	            <div class="col">
-	                <div class="form-group">
-		                <label for="idvlandata">ID Vlan Data</label>
-		                <input type="text" class="form-control" id="idvlandata" maxlength="4">
-	                </div>
-	                <div class="form-group">
-		                <label for="idvlanvoix">ID Vlan Voix</label>
-		                <input type="text" class="form-control" id="idvlanvoix" maxlength="4">
-	                </div>
-	                <div class="checkbox">
-		                <h5>access vlan data</h5>
-		                <p>Ports :
-		                <input type="checkbox" class="" id="dataport1">
-		                <label class="" for="dataport1">1</label>
-		                <input type="checkbox" class="" id="dataport2">
-		                <label class="" for="dataport2">2</label>
-		                <input type="checkbox" class="" id="dataport3">
-		                <label class="" for="dataport3">3</label>
-		                <input type="checkbox" class="" id="dataport4">
-		                <label class="" for="dataport4">4</label>
-		                <input type="checkbox" class="" id="dataport5">
-		                <label class="" for="dataport5">5</label>
-		                <input type="checkbox" class="" id="dataport6">
-		                <label class="" for="dataport6">6</label>
-		                <input type="checkbox" class="" id="dataport7">
-		                <label class="" for="dataport7">7</label>
-		                <input type="checkbox" class="" id="dataport8">
-		                <label class="" for="dataport8">8</label>
-		                <input type="checkbox" class="" id="dataport9">
-		                <label class="" for="dataport9">9</label>
-		                <input type="checkbox" class="" id="dataport10">
-		                <label class="" for="dataport10">10</label>
-		            	</p>
-		                <h5>access vlan voix</h5>
-		                <p>Ports :
-		                <input type="checkbox" class="" id="voixport1">
-		                <label class="" for="voixport1">1</label>
-		                <input type="checkbox" class="" id="voixport2">
-		                <label class="" for="voixport2">2</label>
-		                <input type="checkbox" class="" id="voixport3">
-		                <label class="" for="voixport3">3</label>
-		                <input type="checkbox" class="" id="voixport4">
-		                <label class="" for="voixport4">4</label>
-		                <input type="checkbox" class="" id="voixport5">
-		                <label class="" for="voixport5">5</label>
-		                <input type="checkbox" class="" id="voixport6">
-		                <label class="" for="voixport6">6</label>
-		                <input type="checkbox" class="" id="voixport7">
-		                <label class="" for="voixport7">7</label>
-		                <input type="checkbox" class="" id="voixport8">
-		                <label class="" for="voixport8">8</label>
-		                <input type="checkbox" class="" id="voixport9">
-		                <label class="" for="voixport9">9</label>
-		                <input type="checkbox" class="" id="voixport10">
-		                <label class="" for="voixport10">10</label>
-		                </p>
-		                <h5>ports mixtes</h5>
-		                <p>Ports :
-		                <input type="checkbox" class="" id="mixteport1">
-		                <label class="" for="mixteport1">1</label>
-		                <input type="checkbox" class="" id="mixteport2">
-		                <label class="" for="mixteport2">2</label>
-		                <input type="checkbox" class="" id="mixteport3">
-		                <label class="" for="mixteport3">3</label>
-		                <input type="checkbox" class="" id="mixteport4">
-		                <label class="" for="mixteport4">4</label>
-		                <input type="checkbox" class="" id="mixteport5">
-		                <label class="" for="mixteport5">5</label>
-		                <input type="checkbox" class="" id="mixteport6">
-		                <label class="" for="mixteport6">6</label>
-		                <input type="checkbox" class="" id="mixteport7">
-		                <label class="" for="mixteport7">7</label>
-		                <input type="checkbox" class="" id="mixteport8">
-		                <label class="" for="mixteport8">8</label>
-		                <input type="checkbox" class="" id="mixteport9">
-		                <label class="" for="mixteport9">9</label>
-		                <input type="checkbox" class="" id="mixteport10">
-		                <label class="" for="mixteport10">10</label>
-		                </p>
-		                <h5>ports trunk</h5>
-		                <p>Ports :
-		                <input type="checkbox" class="" id="trunkport1">
-		                <label class="" for="trunkport1">1</label>
-		                <input type="checkbox" class="" id="trunkport2">
-		                <label class="" for="trunkport2">2</label>
-		                <input type="checkbox" class="" id="trunkport3">
-		                <label class="" for="trunkport3">3</label>
-		                <input type="checkbox" class="" id="trunkport4">
-		                <label class="" for="trunkport4">4</label>
-		                <input type="checkbox" class="" id="trunkport5">
-		                <label class="" for="trunkport5">5</label>
-		                <input type="checkbox" class="" id="trunkport6">
-		                <label class="" for="trunkport6">6</label>
-		                <input type="checkbox" class="" id="trunkport7">
-		                <label class="" for="trunkport7">7</label>
-		                <input type="checkbox" class="" id="trunkport8">
-		                <label class="" for="trunkport8">8</label>
-		                <input type="checkbox" class="" id="trunkport9">
-		                <label class="" for="trunkport9">9</label>
-		                <input type="checkbox" class="" id="trunkport10">
-		                <label class="" for="trunkport10">10</label>
-		                </p>
-		                <h5>lldp</h5>
-		                <p>
-		                <input type="checkbox" class="" id="lldpoui">
-		                <label class="" for="lldpoui">Oui</label>
-		                <input type="checkbox" class="" id="lldpnon">
-		                <label class="" for="lldpnon">Non</label>
-		                </p>
-                	</div>
-                </div><!-- fin de div col1 -->
-            <div class="col">
-            	<div class="form-group">
-                        <label for="ipadmin">Adresse IP d'administration</label>
-                        <input type="text" class="form-control" id="ipadmin" maxlength="15">
-                        </div>
-                        <h5>Vlan d'administration</h5>
-                        <p>
-                        <input type="checkbox" class="" id="vlanadmindata">
-                        <label class="" for="vlanadmindata">Data</label>
-                        <input type="checkbox" class="" id="vlanadminvoix">
-                        <label class="" for="vlanadminvoix">Voix</label>
-                        </p>
-                        <div class="form-group">
-                        <label for="defaultgateway">Passerelle par défaut</label>
-                        <input type="text" class="form-control" id="defaultgateway" maxlength="15">
-                        </div>
-        </div><!-- fin de row -->
-            <div class="row">
-
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+    	<div class="row"><h1>Configurateur de switch</h1></div>
+    	<div class="row"><p>Choisir le switch à configurer</p></div>
+		<div class="row">
+			<div class="col">
+				<a href="os6350p10.html"><img class="switchsize" src="images/os6350_p10.jpg"  /></a>
+			</div>
+			<div class="col align-self-center">
+				<h3>Alcatel OS6350-P10</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<a href="os6350p24.html"><img class="switchsize" src="images/os6350-p24.png"  /></a>
+			</div>
+			<div class="col align-self-center">
+				<h3>Alcatel OS6350-P24</h3>
+			</div>
+		</div>      		
 	</div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
