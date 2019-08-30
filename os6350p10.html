@@ -233,6 +233,7 @@ $(document).ready(function(){
 		$( "#message").append( "! LLDP :\nlldp transmit interval 20\nlldp network-policy 1 application voice vlan " + champs.idvlanvoix + " l2-priority 5 dscp 46\n");
 		$( "#message").append( "lldp chassis tlv med capability enable network-policy enable\n");
 		$( "#message").append( "lldp chassis med network-policy 1\n! DHCP Server :\n! Stack Split-Protection Helper :\n! Openflow :\n! DHCPv6 :\n! TWAMP :"  );
+		$( "#message").select();
     	/* jQuery.each( fields, function( i, field ) {
       		$( "#message" ).append( field.value + " " );
 		});
