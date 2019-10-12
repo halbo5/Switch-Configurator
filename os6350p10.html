@@ -184,7 +184,8 @@ $(document).ready(function(){
 		$( "#message" ).append("system name " + champs.Name + "\n");
 		$( "#message" ).append( "system location \nsystem daylight savings time disable\n! Configuration:\n! VLAN :\n" );
 		$( "#message" ).append( "vlan 1 enable name \"VLAN 1\"\n" );
-		if (champs.idvlandata && champs.idvlanvoix) {
+		$("idvlandata").focusout(setvlan(champs,10));
+		/*if (champs.idvlandata && champs.idvlanvoix) {
 		if (eval("champs.idvlanvoix") < eval("champs.idvlandata")) {
 		$( "#message" ).append( "vlan " + champs.idvlanvoix + " enable name \"Voix\"\n" );
 		for (var i = 1; i<= 10; i++) {
@@ -206,7 +207,7 @@ $(document).ready(function(){
 			if (eval("champs.port"+i) == "voixport"+i) $( "#message" ).append( "vlan " + champs.idvlanvoix + " port default 1/"+i+"\n");
 		}
 		}
-		}
+		}*/
 		$( "#message").append( "! VLAN SL:\n! IP :\nip service all\n" );
 		if (champs.vlanadmin && champs.ipadmin) $( "#message").append( "ip interface \"Admin\" address " + champs.ipadmin + " mask 255.255.255.0 vlan " + eval("champs.id"+champs.vlanadmin) + " ifindex 1\n");
 		$( "#message").append( "! IPMS :\n! AAA :\naaa authentication console \"local\"\naaa authentication telnet \"local\"\naaa authentication ftp \"local\"\naaa authentication ssh \"local\"\n" );
