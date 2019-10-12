@@ -273,21 +273,120 @@
 							<label class="" for="vlanadminvoix">Voix</label>
 							</p>
 						</form>
-                        <div class="form-group">
+                       <div class="form-group">
                         <label for="defaultgateway">Passerelle par défaut</label>
-                        <input type="text" class="form-control" id="defaultgateway" maxlength="15">
+                        <input type="text" class="form-control" name="defaultgateway" id="defaultgateway" maxlength="15">
                         </div>
+                        <div class="form-group">
+                        <label for="Name">Nom</label>
+                        <input type="text" class="form-control" name="Name" id="Name" maxlength="15">
+                        </div>
+						<!--<input type="submit" class="btn btn-primary" value="Générer" onclick="window.location.href='os6350p24.html';">-->
+                        <!--<p id="message"></p>-->
                         <button type="submit" class="btn btn-primary">Générer</button>
+                        <button id="download" class="btn btn-primary">Télécharger</button>
+                        </form>
+
         </div><!-- fin de row -->
             <div class="row">
-
+ <textarea cols="50" rows="10" id="message" readonly></textarea>
+</div>
 
             </form>
 	</div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
+    <!--<script src="js/popper.min.js"></script>-->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/sc.js"></script>
+    <script >
+
+$(document).ready(function(){
+	function showValues() {
+		var fields =$( "form" ).serializeArray();
+		var champs = {};
+		jQuery.each( fields, function( i, field ) {
+      		champs[field.name] = field.value;
+		});
+		console.log(champs);
+		$( "#message" ).empty();
+		$( "#message" ).append("! Stack Manager :\n! Chassis :\n");
+		$( "#message" ).append("system name " + champs.Name + "\n");
+		$( "#message" ).append( "system location \nsystem daylight savings time disable\n! Configuration:\n! VLAN :\n" );
+		$( "#message" ).append( "vlan 1 enable name \"VLAN 1\"\n" );
+		if (champs.idvlandata && champs.idvlanvoix) {
+		if (eval("champs.idvlanvoix") < eval("champs.idvlandata")) {
+		$( "#message" ).append( "vlan " + champs.idvlanvoix + " enable name \"Voix\"\n" );
+		for (var i = 1; i<= 24; i++) {
+			if (eval("champs.port"+i) == "voixport"+i) $( "#message" ).append( "vlan " + champs.idvlanvoix + " port default 1/"+i+"\n");
+		}
+		$( "#message" ).append( "vlan " + champs.idvlandata + " enable name \"Data\"\n" );
+		for (var i = 1; i<= 24; i++) {
+			if (eval("champs.port"+i) == "dataport"+i) $( "#message" ).append( "vlan " + champs.idvlandata + " port default 1/"+i+"\n");
+			if (eval("champs.port"+i) == "mixteport"+i) $( "#message" ).append( "vlan " + champs.idvlandata + " port default 1/"+i+"\n");
+		}
+		}
+		else {
+		$( "#message" ).append( "vlan " + champs.idvlandata + " enable name \"Data\"\n" );
+		for (var i = 1; i<= 24; i++) {
+			if (eval("champs.port"+i) == "dataport"+i) $( "#message" ).append( "vlan " + champs.idvlandata + " port default 1/"+i+"\n");
+		}
+		$( "#message" ).append( "vlan " + champs.idvlanvoix + " enable name \"Voix\"\n" );
+		for (var i = 1; i<= 24; i++) {
+			if (eval("champs.port"+i) == "voixport"+i) $( "#message" ).append( "vlan " + champs.idvlanvoix + " port default 1/"+i+"\n");
+		}
+		}
+		}
+		$( "#message").append( "! VLAN SL:\n! IP :\nip service all\n" );
+		if (champs.vlanadmin && champs.ipadmin) $( "#message").append( "ip interface \"Admin\" address " + champs.ipadmin + " mask 255.255.255.0 vlan " + eval("champs.id"+champs.vlanadmin) + " ifindex 1\n");
+		$( "#message").append( "! IPMS :\n! AAA :\naaa authentication console \"local\"\naaa authentication telnet \"local\"\naaa authentication ftp \"local\"\naaa authentication ssh \"local\"\n" );
+		$( "#message").append( "! PARTM :\n! 802.1x :\n! QOS :\nqos trust ports\npolicy condition C_Voix source vlan " + champs.idvlanvoix + "\n"  );
+		$( "#message").append( "policy action A_Voix priority 5 dscp 46\npolicy rule R_Voix condition C_Voix action A_Voix\nqos apply\n"  );
+		$( "#message").append( "! Policy manager\n! Session manager\nsession prompt default \"SW-" + champs.Name + "-->\"\n");
+		$( "#message").append( "! SNMP :\n! RIP :\n! OSPF :\n! ISIS :\n! IPv6 :\n! IP multicast :\n! IPRM !\n"  );
+		$( "#message").append( "ip static-route 0.0.0.0/0 gateway " + champs.defaultgateway + " metric 1\n"  );
+		$( "#message").append( "! RIPng :\n! OSPF3 :\n! BGP :\n! Health monitor :\nhealth treshold memory        90\nhealth treshold temperature 78\n"  );
+		$( "#message").append( "! Interfaces :\n! Udld :\n! Port Mapping :\n! Link Aggregate :\n! VLAN AGG:\n! 802.1Q :\n"  );
+		for (var j = 1; j<= 24; j++) {
+			if (eval("champs.port"+j) == "mixteport"+j) $( "#message").append( "vlan " + champs.idvlanvoix + " 802.1q 1/" + j + " \"PC-TEL\"\n");
+			else {
+					if (eval("champs.port"+j) == "trunkport"+j) {
+						if (eval("champs.idvlanvoix") < eval("champs.idvlandata")) {
+							$( "#message" ).append( "vlan " + champs.idvlanvoix + " 802.1q 1/" + j + " \"TRUNK\"\n");
+							$( "#message" ).append( "vlan " + champs.idvlandata + " 802.1q 1/" + j + " \"TRUNK\"\n");
+					}
+					else {
+						$( "#message" ).append( "vlan " + champs.idvlandata + " 802.1q 1/" + j + " \"TRUNK\"\n");
+						$( "#message" ).append( "vlan " + champs.idvlanvoix + " 802.1q 1/" + j + " \"TRUNK\"\n");
+					}
+				}
+				}
+			}
+		$( "#message").append( "! Spanning tree :\nbridge mode 1x1 pvst+ enable\n! Bridging :\n! Bridging :\n! Port mirroring :\n! UDP Relay :\n"  );
+		$( "#message").append( "ip helper forward delay 0\n! System service :\nswlog console level info\n! SSH :\n! Web :\n! AMAP :\n"  );
+		$( "#message").append( "! Lan Power :\n! lanpower 1 capacitor-detection enable\n! NTP :\n! RDP :\n! VLAN STACKING:\n! EFM-OAM :\n"  );
+		$( "#message").append( "! SAA :\n! Loopback-detection :\n! ERP :\n! TEST-OAM :\n! PPOE-IA :\n! DHL :\n"  );
+		$( "#message").append( "! LLDP :\nlldp transmit interval 20\nlldp network-policy 1 application voice vlan " + champs.idvlanvoix + " l2-priority 5 dscp 46\n");
+		$( "#message").append( "lldp chassis tlv med capability enable network-policy enable\n");
+		$( "#message").append( "lldp chassis med network-policy 1\n! DHCP Server :\n! Stack Split-Protection Helper :\n! Openflow :\n! DHCPv6 :\n! TWAMP :"  );
+    	/* jQuery.each( fields, function( i, field ) {
+      		$( "#message" ).append( field.value + " " );
+		});
+		$( "#message" ).append( "\n"+champs.idvlandata )
+		$( "#message" ).append( "\n"+champs.idvlanvoix );*/
+    }
+ 	$( "form" ).submit(function( event ) {
+  		event.preventDefault();
+   		showValues();
+	});
+	$(":checkbox, :radio").click( showValues );
+  	$(":text").focusout(showValues);
+    $("#download").click( function( event) {
+     download("fichier",$("#message").val());
+     });
+    });
+
+</script>
   </body>
 </html>
