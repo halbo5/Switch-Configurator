@@ -14,7 +14,10 @@
   	<div class="container">
   		<div class="row"><a href="index.html">Accueil</a></div>
     	<div class="row"><h1>Alcatel OS6350-P10</h1></div>
-			<div class="row"><img src="images/os6350_p10.jpg" width="50%" height="50%"></div>
+			<div class="row"><img src="images/os6350_p10.jpg" width="50%" height="50%">
+
+            </div>
+
         		<form>
 	        <div class="row">
 	            <div class="col">
@@ -25,7 +28,7 @@
 	                <div class="form-group">
 		                <label for="idvlanvoix">ID Vlan Voix</label>
 		                <input type="text" class="form-control" name="idvlanvoix" id="idvlanvoix" maxlength="4">
-	                </div>               
+	                </div>
 		                <div>access vlan data</div>
 		                <p>Ports :
 		                <input type="radio" class="radio" name="port1" value="dataport1" id="dataport1">
@@ -95,7 +98,7 @@
 		                <input type="radio" class="radio" name="port10" value="mixteport10" id="mixteport10">
 		                <label class="" for="mixteport10">10</label>
 		                </p>
-		                <div>ports trunk</div>  
+		                <div>ports trunk</div>
 						<p>Ports :
 		                <input type="radio" class="radio" name="port1" value="trunkport1" id="trunkport1">
 		                <label class="" for="trunkport1">1</label>
@@ -138,7 +141,7 @@
 							<label class="" for="vlandata">Data</label>
 							<input type="radio" class="radio" name="vlanadmin" value="vlanvoix" id="vlanvoix">
 							<label class="" for="vlanvoix">Voix</label>
-							</p>					
+							</p>
                         <div class="form-group">
                         <label for="defaultgateway">Passerelle par défaut</label>
                         <input type="text" class="form-control" name="defaultgateway" id="defaultgateway" maxlength="15">
@@ -147,14 +150,12 @@
                         <label for="Name">Nom</label>
                         <input type="text" class="form-control" name="Name" id="Name" maxlength="15">
                         </div>
-<<<<<<< HEAD
-						<input type="submit" class="btn btn-primary" value="Générer" onclick="window.location.href='os6350p24.html';">
-                        <p id="message"></p>
-=======
+						<!--<input type="submit" class="btn btn-primary" value="Générer" onclick="window.location.href='os6350p24.html';">-->
+                        <!--<p id="message"></p>-->
                         <button type="submit" class="btn btn-primary">Générer</button>
+                        <button id="download" class="btn btn-primary">Télécharger</button>
                         </form>
-                       
->>>>>>> 61a780171b298a82a26ccf676113606c7bab58dd
+
         </div><!-- fin de row -->
             <div class="row">
  <textarea cols="50" rows="10" id="message" readonly></textarea>
@@ -169,7 +170,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/sc.js"></script>
     <script >
- 
+
 $(document).ready(function(){
 	function showValues() {
 		var fields =$( "form" ).serializeArray();
@@ -179,8 +180,8 @@ $(document).ready(function(){
 		});
 		console.log(champs);
 		$( "#message" ).empty();
-		$( "#message" ).append( "! Stack Manager :\n! Chassis :\n");
-		$( "#message" ).append( "system name " + champs.Name + "\n");
+		$( "#message" ).append("! Stack Manager :\n! Chassis :\n");
+		$( "#message" ).append("system name " + champs.Name + "\n");
 		$( "#message" ).append( "system location \nsystem daylight savings time disable\n! Configuration:\n! VLAN :\n" );
 		$( "#message" ).append( "vlan 1 enable name \"VLAN 1\"\n" );
 		if (champs.idvlandata && champs.idvlanvoix) {
@@ -203,8 +204,8 @@ $(document).ready(function(){
 		$( "#message" ).append( "vlan " + champs.idvlanvoix + " enable name \"Voix\"\n" );
 		for (var i = 1; i<= 10; i++) {
 			if (eval("champs.port"+i) == "voixport"+i) $( "#message" ).append( "vlan " + champs.idvlanvoix + " port default 1/"+i+"\n");
-		}	
-		}	
+		}
+		}
 		}
 		$( "#message").append( "! VLAN SL:\n! IP :\nip service all\n" );
 		if (champs.vlanadmin && champs.ipadmin) $( "#message").append( "ip interface \"Admin\" address " + champs.ipadmin + " mask 255.255.255.0 vlan " + eval("champs.id"+champs.vlanadmin) + " ifindex 1\n");
@@ -213,7 +214,7 @@ $(document).ready(function(){
 		$( "#message").append( "policy action A_Voix priority 5 dscp 46\npolicy rule R_Voix condition C_Voix action A_Voix\nqos apply\n"  );
 		$( "#message").append( "! Policy manager\n! Session manager\nsession prompt default \"SW-" + champs.Name + "-->\"\n");
 		$( "#message").append( "! SNMP :\n! RIP :\n! OSPF :\n! ISIS :\n! IPv6 :\n! IP multicast :\n! IPRM !\n"  );
-		$( "#message").append( "ip static-route 0.0.0.0/0 gateway " + champs.defaultgateway + "metric 1\n"  );
+		$( "#message").append( "ip static-route 0.0.0.0/0 gateway " + champs.defaultgateway + " metric 1\n"  );
 		$( "#message").append( "! RIPng :\n! OSPF3 :\n! BGP :\n! Health monitor :\nhealth treshold memory        90\nhealth treshold temperature 78\n"  );
 		$( "#message").append( "! Interfaces :\n! Udld :\n! Port Mapping :\n! Link Aggregate :\n! VLAN AGG:\n! 802.1Q :\n"  );
 		for (var j = 1; j<= 10; j++) {
@@ -244,14 +245,17 @@ $(document).ready(function(){
 		$( "#message" ).append( "\n"+champs.idvlandata )
 		$( "#message" ).append( "\n"+champs.idvlanvoix );*/
     }
- 	$( "form" ).submit(function( event ) { 
+ 	$( "form" ).submit(function( event ) {
   		event.preventDefault();
    		showValues();
 	});
 	$(":checkbox, :radio").click( showValues );
   	$(":text").focusout(showValues);
+    $("#download").click( function( event) {
+     download("fichier",$("#message").val());
+     });
     });
-     
+
 </script>
   </body>
 </html>
